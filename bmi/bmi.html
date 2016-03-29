@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="bmi.css" media="all"/>
+    <title>BMI Calculator</title>
+    <meta name="description" content="BMI Calculator" />
+    <meta name="author" content="Alan Baird" />
+</head>
+<body>
+    <form id="bmiform">
+        <h1> BMI Calculator</h1>
+
+        <input type="text" name="weight" id="weight" placeholder="weight" />
+        <p> in pounds</p>
+        <br>
+
+        <input type="text" name="height" id="height" placeholder="height" />
+        <p> in inches</p>
+        <br>
+        <br>
+
+        <input id="calc" type="button" value="Calculate BMI" onclick="calcBMI();"/>
+
+        <h1>Your BMI is:</h1>
+        <input type="text" name="bmi" id="bmi" placeholder="bmi" />
+        <br>
+        <br>
+
+        <input id="clear" type="button" value="clear" onclick="clearthis(this);" />
+    </form>
+
+    <script>
+        function calcBMI() {
+            var height = document.getElementById("height").value;
+            var weight = document.getElementById("weight").value;
+            var bmi = parseInt((weight * 703) / (height * height));
+            document.getElementById("bmi").value = bmi;
+        };
+
+        function clearthis(element){
+            document.getElementById("bmiform").reset();
+        };
+    </script>
+</body>
+</html>
