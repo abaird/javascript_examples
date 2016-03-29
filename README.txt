@@ -1,0 +1,1 @@
+This repository contains several small scale javascript projects that I have worked on for classes and books that I am reading.
