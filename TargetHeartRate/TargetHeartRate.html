@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="TargetHeartRate.css" media="all"/>
+    <title>BMI Calculator</title>
+    <meta name="description" content="Target Heart Rate Calculator" />
+    <meta name="author" content="Alan Baird" />
+</head>
+<body>
+    <form id="targetHeartRateform">
+        <h1> Target Heart Rate Calculator</h1>
+
+        <input type="text" name="age" id="age" placeholder="age" />
+        <p> in years</p>
+        <br>
+
+        <input id="calc" type="button" value="Calculate" onclick="calcHeartRate();"/>
+
+        <h1>Your Target Heart Rate is:</h1>
+        <input type="text" name="targetHeartRate" id="targetHeartRate" placeholder="Target Heart Rate" />
+        <br>
+        <br>
+
+        <input id="clear" type="button" value="clear" onclick="clearthis(this);" />
+    </form>
+
+    <script>
+        function calcHeartRate() {
+            var age = document.getElementById("age").value;
+            var maxHeartRate = (220 - parseInt(age));
+            var minTargetHR = parseInt(maxHeartRate * 0.5);
+            var maxTargetHR = parseInt(maxHeartRate * 0.85);
+            var resultString = minTargetHR.toString() + " to " + maxHeartRate.toString() + " beats per minute";
+            document.getElementById("targetHeartRate").value = resultString;
+        };
+
+        function clearthis(element){
+            document.getElementById("targetHeartRateform").reset();
+        };
+    </script>
+</body>
+</html>
