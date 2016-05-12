@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello WebAudio Tone</title>
+</head>
+
+<body>
+<div>
+    <label for='note-number'>Note number:</label>
+    <input id='note-number' type='number' value='0' />
+</div>
+<div>
+    <label for='gain'>Volume/Gain:</label>
+    <input id='gain' type='range' min='0' max='1' step='0.1' value='1.0' />
+    <output for='gain' id='gain-output'>1.0</output>
+</div>
+<button id='play-tone'>Play Tone</button>
+<button id='stop-tone' disabled='disabled'>Stop Tone</button>
+
+<script>
+    (function() {
+                var gainEl      = document.getElementById('gain')
+                , gainOutputEl  = document.getElementById('gain-output')
+                , playToneEl    = document.getElementById('play-tone')
+                , stopToneEl    = document.getElementById('stop-tone')
+                , AudioContext  = (window.AudioContext || window.webkitAudioContext)
+                , audioCtx      = new AudioContext()
+                , gain          = audioCtx.createGain()
+                , oscillator
+                ;
+
+        gain.connect( audioCtx.destination );
+        gainEl.addEventListener( 'input', changeGain );
+        playToneEl.addEventListener( 'click', playTone );
+        stopToneEl.addEventListener( 'click', stopTone );
+
+        function changeGain() {
+            gainOutputEl.value = this.value;
+            gain.gain.value = this.value;
+        }
+
+        function playTone() {
+            var noteNum = document.getElementById('note-number').value
+                    , frequencyHz = 440 * Math.pow(2, noteNum * 1/12)
+                    ;
+
+            oscillator = audioCtx.createOscillator()
+            oscillator.frequency.value = frequencyHz;
+            oscillator.connect( gain );
+
+            oscillator.start();
+            stopToneEl.disabled = false;
+            stopToneEl.focus();
+            playToneEl.disabled = true;
+        }
+
+        function stopTone() {
+            oscillator.stop();
+            playToneEl.disabled = false;
+            playToneEl.focus();
+            stopToneEl.disabled = true;
+        }
+    })();
+</script>
+</body>
+</html>

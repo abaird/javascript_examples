@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello WebAudio Tone</title>
+</head>
+
+<body>
+<button id='play-tone'>Play Tone</button>
+<button id='stop-tone' disabled='disabled'>Stop Tone</button>
+
+<script>
+    (function() {
+        var playToneEl   = document.getElementById('play-tone')
+                , stopToneEl   = document.getElementById('stop-tone')
+                , AudioContext = (window.AudioContext || window.webkitAudioContext)
+                , audioCtx     = new AudioContext()
+                , oscillator   = audioCtx.createOscillator()
+                ;
+
+        oscillator.frequency.value = 440;  // 440 Hz = Middle A Natural
+        oscillator.connect( audioCtx.destination );
+
+        playToneEl.addEventListener( 'click', playTone );
+        stopToneEl.addEventListener( 'click', stopTone );
+
+        function playTone() {
+            oscillator.start();
+            stopToneEl.disabled = false;
+            stopToneEl.focus();
+            playToneEl.disabled = true;
+        }
+
+        function stopTone() {
+            oscillator.stop();
+        }
+    })();
+</script>
+</body>
+</html>
